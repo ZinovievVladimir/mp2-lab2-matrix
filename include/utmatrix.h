@@ -237,8 +237,11 @@ public:
   }
   friend ostream & operator<<( ostream &out, const TMatrix &mt)
   {
-    for (int i = 0; i < mt.Size; i++)
+    for (int i = 0; i < mt.Size; i++) {
+	  for (int j = 0; j < (mt.Size - mt.pVector[i].GetSize()); j++)
+		  out << "0 ";
       out << mt.pVector[i] << endl;
+	}
     return out;
   }
 };
@@ -249,9 +252,9 @@ TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
   if (s > MAX_MATRIX_SIZE) {
     throw 1;
   }
-  TVector<ValType> *tmp = new TVector<ValType>(Size);
+  
   for (int i = 0; i < Size; i++) {
-    pVector[i] = *tmp;
+    pVector[i] = TVector<ValType>(s - i, i);
   }
 } /*-------------------------------------------------------------------------*/
 
