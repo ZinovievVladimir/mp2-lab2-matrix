@@ -9,6 +9,7 @@
 #define __TMATRIX_H__
 
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -66,7 +67,7 @@ TVector<ValType>::TVector(int s, int si) {
     for (int i = 0; i < Size; i++)
       pVector[i] = 0;
   } else {
-    throw 1;
+    throw std::logic_error("bad size or start index");
   }
 } /*-------------------------------------------------------------------------*/
 
@@ -89,7 +90,7 @@ ValType& TVector<ValType>::operator[](int pos) {
   if ((pos > -1) && (pos < Size))
     return pVector[pos - StartIndex];
   else
-    throw 1;
+    throw std::logic_error("bad position");
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType>  // сравнение
